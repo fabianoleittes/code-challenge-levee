@@ -1,0 +1,32 @@
+version: "3.4"
+
+services:
+  app:
+    container_name: "code-challenge-levee-api"
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3001:3001
+    volumes:
+      - ./:/app
+      - $GOPATH/pkg/mod/cache:/go/pkg/mod/cache
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    networks:
+      - job
+
+  mongodb:
+    container_name: mongodb
+    image: 'bitnami/mongodb:latest'
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb
+      - MONGODB_ROOT_PASSWORD=password123
+    ports:
+      - 27017:27017
+    networks:
+      - job
+networks:
+  job:

@@ -1,83 +1,135 @@
-# Code challenge Levee API
+<h1 align="center">
+   <a href="#"> Code challenge Levee API </a>
+</h1>
 
-![Tests & Linters](https://github.com/fabianoleittes/code-challenge-levee/workflows/Tests%20&%20Linters/badge.svg?branch=main)
-
-
-<h4 align="center">
-	🚧  Code challenge Levee API em construção 🚀 🚧
-</h4>
+<h3 align="center">
+    Backend Engineer Code Challenge - Levee
+</h3>
 
 <p align="center">
- <a href="#-sobre-o-projeto">Sobre</a> •
- <a href="#-funcionalidades">Funcionalidades</a> •
- <a href="#-como-executar-o-projeto">Como executar</a> •
- <a href="#-tecnologias">Tecnologias</a>
- •
- <a href="#-autor">Autor</a> •
- <a href="#user-content--licença">Licença</a>
+
+<img alt="Testing" src="https://github.com/fabianoleittes/code-challenge-levee/workflows/Tests%20&%20Linters/badge.svg?branch=main">
+
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/fabianoleittes/code-challenge-levee?color=%2304D361">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/fabianoleittes/code-challenge-levee">
+
+  <a href="https://github.com/fabianoleittes/code-challenge-levee/commits/main">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/fabianoleittes/code-challenge-levee">
+  </a>
+
+   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+   <a href="https://github.com/fabianoleittes/code-challenge-levee/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/fabianoleittes/code-challenge-levee?style=social">
+  </a>
 </p>
 
 
-## 💻 Sobre o projeto
+<h4 align="center">
+	 Status: Finished
+</h4>
 
-API Restful feita como teste para a vaga de backend engineer.
+<p align="center">
+ <a href="#about">About</a> •
+ <a href="#features">Features</a> •
+ <a href="#layout">Layout</a> •
+ <a href="#how-it-works">How it works</a> •
+ <a href="#tech-stack">Tech Stack</a> •
+ <a href="#contributors">Contributors</a> •
+ <a href="#author">Author</a> •
+ <a href="#user-content-license">License</a>
+
+</p>
+
+## About
+
+This project is a simple API for some `Job` routines, such as creating, listing, and activate.
 
 ---
 
-## ⚙️ Funcionalidades
+## Features
 
-- [ ] RESTful API
+- [x] Create job
+- [ ] List the all jobs
+- [ ] Activate the status for a specific job
+- [ ] List the percentage and number of active jobs by category.
 
 ---
 
-## 🚀 Como executar o projeto
+## How it works
 
-Este projeto é uma API Restful:
+This project is Restful API:
 1. Backend
 
-### Pré-requisitos
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[docker](https://docs.docker.com/install/) e [docker compose](https://docs.docker.com/compose/install/)
+### Pre-requisites
 
-#### 🎲 Rodando a API (servidor)
+Before you begin, you will need to have the following tools installed on your machine:
+[docker](https://docs.docker.com/install/), [docker compose](https://docs.docker.com/compose/install/), [Git] (https://git-scm.com).
+
+In addition, it is good to have an editor to work with the code like [VSCode] (https://code.visualstudio.com/)
+
+#### Running the Backend (server)
 
 ```bash
 
-# Clone este repositório
+# Clone this repository
 $ git clone https://github.com/fabianoleittes/code-challenge-levee
 
-# Acesse a pasta do projeto no terminal/cmd
+# Access the project folder cmd/terminal
 $ cd code-challenge-levee
 
-# Instalando as dependências e Execute a aplicação em modo de desenvolvimento
-$ docker-compose up --build
-# O servidor inciará na porta:3001 - acesse http://api.dev.local:3001
+# Environment variables
+$ make init
 
-# Rodando dos testes
-$ WIP
+# Run the application in development mode
+$ make up
 
+# The server will start at port: 3001 - go to http://localhost:3001
+
+# View logs
+$ make logs
 ```
 
-## Endpoints
-WIP
+
+#### API Request
+
+ Endpoint        | HTTP Method           | Description       |
+| --------------- | :---------------------: | :-----------------: |
+| `/v1/jobs` | `POST`                | `Create jobs` |
+| `/v1/health`| `GET`                 | `Health check`  |
+---
+
+## Tech Stack
+
+The following tools were used in the construction of the project:
+
+#### **API**  ([Golang](https://golang.org/))
+
+-   **[Gorilla/mux](https://github.com/gorilla/mux)**
+-   **[Gin Web Framework](https://github.com/gin-gonic/gin)**
+-   **[PostgreSQL](https://www.postgresql.org/)**
+-   **[MongoDB](https://www.mongodb.com/)**
+
+**Utilities**
+
+
+-   Commit Conventional:  **[Commitlint](https://github.com/conventional-changelog/commitlint)**
+-   API Test:  **[Insomnia](https://insomnia.rest/)**
+---
+
+
+## How to contribute
+
+1. Fork the project.
+2. Create a new branch with your changes: `git checkout -b my-feature`
+3. Save your changes and create a commit message telling you what you did: `git commit -m" feature: My new feature "`
+4. Submit your changes: `git push origin my-feature`
+> If you have any questions check this [guide on how to contribute](./CONTRIBUTING.md)
 
 ---
 
-## 🛠 Tecnologias
-
-As seguintes ferramentas foram usadas na construção do projeto:
-
-WIP
-
-#### Utilitários
-
--   Conventional commits:  **[Commits](https://www.conventionalcommits.org/en/v1.0.0/)**
--   Teste de API:  **[Insomnia](https://insomnia.rest/)**
-
----
-
-## Autor
+## Author
 
 <a href="https://fabianoleittes.me/">
  <img style="border-radius: 50%;" src="https://avatars3.githubusercontent.com/u/279344?v=4" width="100px;" alt=""/>
@@ -89,10 +141,9 @@ WIP
 
 ---
 
-## 📝 Licença
+## 📝 License
 
-Este projeto esta sobe a licença [MIT](./LICENSE).
+This project is under the license [MIT](./LICENSE).
 
-Feito com ❤️ por Fabiano Leite 👋🏽 [Entre em contato!](https://www.linkedin.com/in/fabianoleittes/)
-
+##### Made with love by Fabiano Leite 👋🏽 [Get in Touch!](Https://www.linkedin.com/in/fabianoleittes/)
 ---

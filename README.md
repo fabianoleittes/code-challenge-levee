@@ -26,7 +26,7 @@
 
 
 <h4 align="center">
-	 Status: Finished
+	 Status: WIP
 </h4>
 
 <p align="center">
@@ -65,7 +65,7 @@ This project is Restful API:
 ### Pre-requisites
 
 Before you begin, you will need to have the following tools installed on your machine:
-[docker](https://docs.docker.com/install/), [docker compose](https://docs.docker.com/compose/install/), [Git] (https://git-scm.com).
+[docker](https://docs.docker.com/install/), [docker compose](https://docs.docker.com/compose/install/), [Git](https://git-scm.com).
 
 In addition, it is good to have an editor to work with the code like [VSCode] (https://code.visualstudio.com/)
 

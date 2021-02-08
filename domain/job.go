@@ -22,7 +22,6 @@ type Job struct {
 	status     string
 	expiresAt  time.Time
 	createdAt  time.Time
-	updatedAt  time.Time
 }
 
 // JobRepository represents the interface contract

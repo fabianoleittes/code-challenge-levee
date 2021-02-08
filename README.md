@@ -67,7 +67,7 @@ This project is Restful API:
 Before you begin, you will need to have the following tools installed on your machine:
 [docker](https://docs.docker.com/install/), [docker compose](https://docs.docker.com/compose/install/), [Git](https://git-scm.com).
 
-In addition, it is good to have an editor to work with the code like [VSCode] (https://code.visualstudio.com/)
+In addition, it is good to have an editor to work with the code like [VSCode](https://code.visualstudio.com/)
 
 #### Running the Backend (server)
 

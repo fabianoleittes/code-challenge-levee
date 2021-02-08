@@ -78,8 +78,8 @@ func TestCreateJobInteractor_Execute(t *testing.T) {
 					Title:      "Software engineer",
 					Status:     "draft",
 					CategoryID: "2",
-					ExpiresAt:  expiresAt,
-					CreatedAt:  time.Time{},
+					ExpiresAt:  expiresAt.Local().String(),
+					CreatedAt:  time.Time{}.String(),
 				},
 			},
 			expected: output.Job{
@@ -88,8 +88,8 @@ func TestCreateJobInteractor_Execute(t *testing.T) {
 				Title:      "Software engineer",
 				Status:     "draft",
 				CategoryID: "2",
-				ExpiresAt:  expiresAt,
-				CreatedAt:  time.Time{},
+				ExpiresAt:  expiresAt.Local().String(),
+				CreatedAt:  time.Time{}.String(),
 			},
 		},
 		{
@@ -122,8 +122,8 @@ func TestCreateJobInteractor_Execute(t *testing.T) {
 					Title:      "JS developer",
 					Status:     "draft",
 					CategoryID: "3",
-					ExpiresAt:  expiresAt,
-					CreatedAt:  time.Time{},
+					ExpiresAt:  expiresAt.Local().String(),
+					CreatedAt:  time.Time{}.String(),
 				},
 			},
 			expected: output.Job{
@@ -132,8 +132,8 @@ func TestCreateJobInteractor_Execute(t *testing.T) {
 				Title:      "JS developer",
 				Status:     "draft",
 				CategoryID: "3",
-				ExpiresAt:  expiresAt,
-				CreatedAt:  time.Time{},
+				ExpiresAt:  expiresAt.Local().String(),
+				CreatedAt:  time.Time{}.String(),
 			},
 		},
 		{

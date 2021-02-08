@@ -1,8 +1,8 @@
-version: "3.4"
+version: "3.7"
 
 services:
   app:
-    container_name: "code-challenge-levee-api"
+    container_name: "code-challenge-levee"
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -14,19 +14,63 @@ services:
     env_file:
       - .env
     depends_on:
-      - mongodb
-    networks:
-      - job
+      - mongodb-primary
+      - postgres
 
-  mongodb:
-    container_name: mongodb
-    image: 'bitnami/mongodb:latest'
+  postgres:
+    container_name: "postgres"
+    image: "postgres:13.1-alpine"
+    ports:
+      - 5432:5432
     environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DATABASE: levee
+    volumes:
+      - ./_scripts/postgres:/docker-entrypoint-initdb.d
+    networks:
+      - levee
+
+  mongodb-primary:
+    container_name: mongodb-primary
+    image: 'docker.io/bitnami/mongodb:4.4-debian-10'
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
     ports:
       - 27017:27017
     networks:
-      - job
+      - levee
+
+  mongodb-secondary:
+    container_name: mongodb-secondary
+    image: 'docker.io/bitnami/mongodb:4.4-debian-10'
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    networks:
+      - levee
+
+  mongodb-arbiter:
+    container_name: mongodb-arbiter
+    image: 'docker.io/bitnami/mongodb:4.4-debian-10'
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    networks:
+      - levee
+
 networks:
-  job:
+  levee:

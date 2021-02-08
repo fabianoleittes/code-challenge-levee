@@ -1,13 +1,19 @@
 FROM golang:alpine as builder
 
 ENV GO111MODULE=on \
-	CGO_ENABLED=0 \
-	GOOS=linux \
-	GOARCH=amd64 \
-	MONGODB_HOST=mongodb \
-	MONGODB_DATABASE=job \
-	APP_NAME=code-challenge-levee-api \
-	APP_PORT=3001
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    MONGODB_HOST=mongodb \
+	MONGODB_DATABASE=levee \
+	POSTGRES_HOST=postgres \
+	POSTGRES_PORT=5432 \
+	POSTGRES_USER=dev \
+	POSTGRES_PASSWORD=dev \
+	POSTGRES_DATABASE=levee \
+	POSTGRES_DRIVER=postgres \
+	APP_NAME=code-challenge-levee \
+    APP_PORT=3001
 
 WORKDIR /build
 COPY . .

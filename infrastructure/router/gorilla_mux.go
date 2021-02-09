@@ -67,6 +67,8 @@ func (g gorillaMux) setAppHandlers(router *mux.Router) {
 
 	api.Handle("/jobs", g.buildCreateJobAction()).Methods(http.MethodPost)
 	api.HandleFunc("/health", action.HealthCheck).Methods(http.MethodGet)
+
+	api.Handle("/jobs", g.buildFindAllJobAction()).Methods(http.MethodGet)
 }
 
 func (g gorillaMux) buildCreateJobAction() *negroni.Negroni {
@@ -78,6 +80,27 @@ func (g gorillaMux) buildCreateJobAction() *negroni.Negroni {
 				g.ctxTimeout,
 			)
 			act = action.NewCreateJobAction(uc, g.log, g.validator)
+		)
+
+		act.Execute(res, req)
+	}
+
+	return negroni.New(
+		negroni.HandlerFunc(middleware.NewLogger(g.log).Execute),
+		negroni.NewRecovery(),
+		negroni.Wrap(handler),
+	)
+}
+
+func (g gorillaMux) buildFindAllJobAction() *negroni.Negroni {
+	var handler http.HandlerFunc = func(res http.ResponseWriter, req *http.Request) {
+		var (
+			uc = usecase.NewFindAllJobInteractor(
+				repository.NewJobSQL(g.db),
+				presenter.NewFindAllJobPresenter(),
+				g.ctxTimeout,
+			)
+			act = action.NewFindAllJobAction(uc, g.log)
 		)
 
 		act.Execute(res, req)

@@ -61,7 +61,7 @@ func (g ginEngine) Listen() {
 
 func (g ginEngine) setAppHandlers(router *gin.Engine) {
 	router.POST("/v1/jobs", g.buildCreateJobAction())
-
+	router.GET("/v1/jobs", g.buildFindAllJobAction())
 	router.GET("/v1/health", g.healthcheck())
 }
 
@@ -74,6 +74,21 @@ func (g ginEngine) buildCreateJobAction() gin.HandlerFunc {
 				g.ctxTimeout,
 			)
 			act = action.NewCreateJobAction(uc, g.log, g.validator)
+		)
+
+		act.Execute(c.Writer, c.Request)
+	}
+}
+
+func (g ginEngine) buildFindAllJobAction() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var (
+			uc = usecase.NewFindAllJobInteractor(
+				repository.NewJobNoSQL(g.db),
+				presenter.NewFindAllJobPresenter(),
+				g.ctxTimeout,
+			)
+			act = action.NewFindAllJobAction(uc, g.log)
 		)
 
 		act.Execute(c.Writer, c.Request)

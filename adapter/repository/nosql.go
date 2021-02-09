@@ -4,6 +4,7 @@ import "context"
 
 type NoSQL interface {
 	Store(context.Context, string, interface{}) error
+	FindAll(context.Context, string, interface{}, interface{}) error
 	StartSession() (Session, error)
 }
 

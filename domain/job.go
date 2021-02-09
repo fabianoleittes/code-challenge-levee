@@ -3,8 +3,11 @@ package domain
 
 import (
 	"context"
+	"errors"
 	"time"
 )
+
+var ErrJobNotFound = errors.New("Job not found")
 
 // JobID type
 type JobID string
@@ -27,6 +30,7 @@ type Job struct {
 // JobRepository represents the interface contract
 type JobRepository interface {
 	Create(context.Context, Job) (Job, error)
+	FindAll(context.Context) ([]Job, error)
 }
 
 //NewJob create a new Job

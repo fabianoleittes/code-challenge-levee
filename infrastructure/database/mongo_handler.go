@@ -52,6 +52,24 @@ func (mgo mongoHandler) Store(ctx context.Context, collection string, data inter
 	return nil
 }
 
+func (mgo mongoHandler) FindAll(ctx context.Context, collection string, query interface{}, result interface{}) error {
+	cur, err := mgo.db.Collection(collection).Find(ctx, query)
+	if err != nil {
+		return err
+	}
+
+	defer cur.Close(ctx)
+	if err = cur.All(ctx, result); err != nil {
+		return err
+	}
+
+	if err := cur.Err(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (mgo *mongoHandler) StartSession() (repository.Session, error) {
 	session, err := mgo.client.StartSession()
 	if err != nil {

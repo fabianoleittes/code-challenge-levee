@@ -35,7 +35,7 @@
  <a href="#how-it-works">How it works</a> •
  <a href="#tech-stack">Tech Stack</a> •
  <a href="#author">Author</a> •
- <a href="#user-content-license">License</a>
+ <a href="#license">License</a>
 
 </p>
 
@@ -51,6 +51,10 @@ This project is a simple API for some `Job` routines, such as creating, listing,
 - [ ] List the all jobs
 - [ ] Activate the status for a specific job
 - [ ] List the percentage and number of active jobs by category.
+- [ ] JWT Token Based Authentication
+- [x] API versioning
+- [x] JSON Schema implementation
+- [x] Setup scripts
 
 ---
 
@@ -85,6 +89,9 @@ $ make up
 
 # The server will start at port: 3001 - go to http://localhost:3001
 
+# Run tests in container
+$ make test
+
 # View logs
 $ make logs
 ```
@@ -96,6 +103,35 @@ $ make logs
 | `/v1/jobs` | `POST`                | `Create jobs` |
 | `/v1/health`| `GET`                 | `Health check`  |
 ---
+
+## Test endpoints `API` using curl
+
+- #### Creating new job
+
+`Request`
+```bash
+curl -i --request POST 'http://localhost:3001/v1/jobs' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "partner_id": "1",
+    "title": "Sr Ruby Dev",
+    "category_id": "1",
+    "expires_at": "2021-02-15"
+}'
+```
+
+`Response`
+```json
+{
+   "id":"68de685e-3a37-431f-ba6b-dcd0076e5138",
+   "partner_id":"1",
+   "title":"Sr Ruby Dev",
+   "status":"draft",
+   "category_id": "1",
+   "expires_at":"2021-02-15T14:50:46Z",
+   "created_at":"2021-02-08T14:50:46Z"
+}
+```
 
 ## Tech Stack
 

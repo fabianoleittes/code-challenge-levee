@@ -28,7 +28,7 @@ func (m mockJobCreateJob) Execute(_ context.Context, _ input.Job) (output.Job, e
 func TestCreateJobAction_Execute(t *testing.T) {
 	t.Parallel()
 
-	// expiresAt, _ := time.Parse(time.RFC3339, "2021-02-20T15:04:05Z")
+	// expiresAt, _ := time.Parse(time.RFC3339, "02/Jan/2006 15:04:05")
 	validator, _ := validation.NewValidatorFactory(validation.InstanceGoPlayground)
 
 	type args struct {
@@ -48,9 +48,9 @@ func TestCreateJobAction_Execute(t *testing.T) {
 				rawPayload: []byte(
 					`{
 						"partner_id": "2",
-						"title": "Jr Ruby Dev",
-						"category_id": "1",
-						"expires_at": "0001-01-01 00:00:00"
+						"title": "Jr golang dev",
+						"category_id": "2",
+						"expires_at": "2021-02-20T15:04:05Z"
 					}`,
 				),
 			},
@@ -58,10 +58,10 @@ func TestCreateJobAction_Execute(t *testing.T) {
 				result: output.Job{
 					ID:         "68de685e-3a37-431f-ba6b-dcd0076e5138",
 					PartnerID:  "2",
-					Title:      "Jr Ruby Dev",
+					Title:      "Jr golang dev",
 					Status:     "draft",
-					CategoryID: "1",
-					ExpiresAt:  time.Time{}.String(),
+					CategoryID: "2",
+					ExpiresAt:  "2021-02-20T15:04:05Z",
 					CreatedAt:  time.Time{}.String(),
 				},
 				err: nil,
@@ -69,49 +69,49 @@ func TestCreateJobAction_Execute(t *testing.T) {
 			expectedBody: `{
 				"id":"68de685e-3a37-431f-ba6b-dcd0076e5138",
 				"partner_id":"2",
-				"title":"Jr Ruby Dev",
-				"status":"draft",
-				"category_id": "1",
-				"expires_at":"0001-01-01 00:00:00 +0000 UTC"
-				"created_at":"0001-01-01 00:00:00 +0000 UTC"
-				}`,
-			expectedStatusCode: http.StatusCreated,
-		},
-		{
-			name: "CreateJobAction success",
-			args: args{
-				rawPayload: []byte(
-					`{
-						"partner_id": "1",
-						"title": "Sr Ruby Dev",
-						"category_id": "1",
-						"expires_at": "0001-01-01 00:00:00"
-					}`,
-				),
-			},
-			ucMock: mockJobCreateJob{
-				result: output.Job{
-					ID:         "68de685e-3a37-431f-ba6b-dcd0076e5138",
-					PartnerID:  "1",
-					Title:      "Sr Ruby Dev",
-					Status:     "draft",
-					CategoryID: "2",
-					ExpiresAt:  time.Time{}.String(),
-					CreatedAt:  time.Time{}.String(),
-				},
-				err: nil,
-			},
-			expectedBody: `{
-				"id":"68de685e-3a37-431f-ba6b-dcd0076e5138",
-				"partner_id":"1",
-				"title":"Sr Ruby Dev",
+				"title":"Jr golang dev",
 				"status":"draft",
 				"category_id": "2",
-				"expires_at":"0001-01-01 00:00:00 +0000 UTC"
+				"expires_at":"2021-02-20T15:04:05Z"
 				"created_at":"0001-01-01 00:00:00 +0000 UTC"
 				}`,
 			expectedStatusCode: http.StatusCreated,
 		},
+		// {
+		// 	name: "CreateJobAction success",
+		// 	args: args{
+		// 		rawPayload: []byte(
+		// 			`{
+		// 				"partner_id": "1",
+		// 				"title": "Sr Ruby Dev",
+		// 				"category_id": "1",
+		// 				"expires_at": "0001-01-01"
+		// 			}`,
+		// 		),
+		// 	},
+		// 	ucMock: mockJobCreateJob{
+		// 		result: output.Job{
+		// 			ID:         "68de685e-3a37-431f-ba6b-dcd0076e5139",
+		// 			PartnerID:  "1",
+		// 			Title:      "Sr Ruby Dev",
+		// 			Status:     "draft",
+		// 			CategoryID: "1",
+		// 			ExpiresAt:  time.Time{}.String(),
+		// 			CreatedAt:  time.Time{}.String(),
+		// 		},
+		// 		err: nil,
+		// 	},
+		// 	expectedBody: `{
+		// 		"id":"68de685e-3a37-431f-ba6b-dcd0076e5139",
+		// 		"partner_id":"1",
+		// 		"title":"Sr Ruby Dev",
+		// 		"status":"draft",
+		// 		"category_id": "1",
+		// 		"expires_at":"0001-01-01 00:00:00 +0000 UTC"
+		// 		"created_at":"0001-01-01 00:00:00 +0000 UTC"
+		// 		}`,
+		// 	expectedStatusCode: http.StatusCreated,
+		// },
 	}
 
 	for _, tt := range tests {
